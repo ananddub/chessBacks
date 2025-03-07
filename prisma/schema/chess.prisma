@@ -1,0 +1,92 @@
+model Chess {
+        id          String       @id @default(uuid())
+        groupId     String       @default(uuid())
+        groupName   String       @default("")
+        player1     User[]       @relation("player1")
+        player1id   String
+        player2     User[]       @relation("player2")
+        player2id   String
+        status      String       @default("pending")
+        isPrivate   Boolean      @default(false)
+        startTimer  BigInt       @default(0)
+        p1starttime BigInt       @default(0)
+        p2starttime BigInt       @default(0)
+        p1endtime   BigInt       @default(0)
+        p2endtime   BigInt       @default(0)
+        endTimer    BigInt       @default(0)
+        createdAt   DateTime     @default(now())
+        totalLive   Int          @default(0)
+        User        User[]
+        movement    Movement[]
+        socialLikes SocailLike[]
+}
+
+model SocailLike {
+        id        String    @id @default(uuid())
+        userId    String
+        User      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+        chessId   String
+        Chess     Chess?    @relation(fields: [chessId], references: [id], onDelete: Cascade)
+        requested Boolean
+        removed   Boolean
+        accepted  Boolean
+        rejected  Boolean
+        watching  Boolean
+        ikes      Boolean
+        dislikes  Boolean
+        message   Message[]
+}
+
+model Message {
+        id        String     @id @default(uuid())
+        userId    String
+        socialId  String
+        social    SocailLike @relation(fields: [socialId], references: [id], onDelete: Cascade)
+        message   String
+        createdAt BigInt     @default(0)
+        User      User       @relation(fields: [userId], references: [id])
+}
+
+enum GameStatus {
+        PENDING
+        ACCEPTED
+        REJECTED
+        BLOCKED
+}
+
+model Peice {
+        id         String    @id @default(uuid())
+        from       String
+        to         String
+        piece      String
+        movement   Movement?
+        movementId String?
+}
+
+model Movement {
+        id      String  @id @default(uuid())
+        moveId  String? @unique
+        moves   Peice?  @relation(fields: [moveId], references: [id], onDelete: Cascade)
+        stateId String? @unique
+        state   State?
+        chess   Chess?  @relation(fields: [chessId], references: [id], onDelete: Cascade)
+        chessId String?
+}
+
+model State {
+        id                      String   @id @default(uuid())
+        moveId                  String
+        chessId                 String
+        in_check                Boolean
+        in_checkmate            Boolean
+        in_draw                 Boolean
+        in_stalemate            Boolean
+        in_threefold_repetition Boolean
+        insufficient_material   Boolean
+        game_over               Boolean
+        fen                     String
+        in_promotion            Boolean
+        userId                  String?
+        movementId              String   @unique
+        movement                Movement @relation(fields: [movementId], references: [id], onDelete: Cascade)
+}

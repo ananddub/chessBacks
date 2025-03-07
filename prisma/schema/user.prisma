@@ -1,0 +1,41 @@
+model User {
+        id          String       @id @default(uuid())
+        name        String
+        email       String       @unique
+        password    String
+        rating      Int          @default(0)
+        isOnline    Boolean      @default(false)
+        status      Status       @default(LOBBY)
+        image       String?
+        createdAt   DateTime     @default(now())
+        updatedAt   DateTime     @updatedAt
+        freinds     Friendship[]
+        player1     Chess[]      @relation("player1")
+        player2     Chess[]      @relation("player2")
+        chess       Chess[]
+        messages    Message[]
+        socialLikes SocailLike[]
+}
+
+model Friendship {
+        id          String           @id @default(uuid())
+        requesterId String
+        receiverId  String
+        status      FriendshipStatus @default(PENDING)
+        User        User             @relation(fields: [requesterId], references: [id], onDelete: Cascade)
+        userId      String?
+}
+
+enum Status {
+        LOBBY
+        ACTIVE
+        IN_GAME
+        OFFLINE
+}
+
+enum FriendshipStatus {
+        PENDING
+        ACCEPTED
+        REJECTED
+        BLOCKED
+}
