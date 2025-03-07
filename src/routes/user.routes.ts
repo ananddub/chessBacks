@@ -17,6 +17,10 @@ import {
     setSocketIdSchema,
     updateUserSchema,
 } from '@utils/zodvalidation/user.zod';
+import redisPublish from '@utils/redis.pub';
+import { Channels } from '@constant/channels';
+import { UserChannels } from '@constant/userchannel';
+import kafkProducer from '@utils/kafka/kafka.producer';
 
 const userRoutes = express.Router();
 
@@ -27,5 +31,12 @@ userRoutes.put('/user/:id', zodValidation(updateUserSchema), updateUser);
 userRoutes.delete('/user/:id', zodValidation(deleteUserSchema), deleteUser);
 userRoutes.post('/login', zodValidation(loginSchema), userLogin);
 userRoutes.post('/socket', zodValidation(setSocketIdSchema), setSocketId);
+
+userRoutes.post('/reqfriend/:id', zodValidation(getUserSchema), (req, res) => {
+    const { id } = req.params;
+    redisPublish(UserChannels.ON_USER_FREIND_REQUEST, JSON.stringify({ id }));
+    kafkProducer(UserChannels.ON_USER_FREIND_REQUEST)(JSON.stringify({ id }));
+    res.send({ status: 'ok' });
+});
 
 export default userRoutes;

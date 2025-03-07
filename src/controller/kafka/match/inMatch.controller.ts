@@ -3,10 +3,11 @@ import { Chess } from '@models/chess.modal';
 import { KafkaConsumerProps } from 'types/kafka.types';
 
 const kafkaInMatch = async ({ message }: KafkaConsumerProps) => {
-    const { groupId, turn, moves, state } = JSON.parse(message);
-    Chess.findByIdAndUpdate(
-        groupId,
+    const { to, turn, value } = JSON.parse(message);
+    const { moves, state } = value;
 
+    const values = await Chess.findByIdAndUpdate(
+        to,
         {
             $push: { movement: { turn, moves, state } },
             currentTurn: turn === TURN.BLACK ? TURN.WHITE : TURN.BLACK,

@@ -6,7 +6,7 @@ import kafkProducer from '@utils/kafka/kafka.producer';
 const socketRequestJoin = async (msg: string) => {
     try {
         kafkProducer(Channels.ON_REQUEST_JOIN)(msg);
-        await redisPublish(Channels.ON_REQUEST_JOIN, msg);
+        redisPublish(Channels.ON_REQUEST_JOIN, msg);
     } catch (error) {
         console.log(error);
     }

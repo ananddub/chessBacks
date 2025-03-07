@@ -31,11 +31,12 @@ const kafkaInProgress = async ({ message, commit }: KafkaConsumerProps) => {
                 turn: TURN.BLACK,
                 user: user._id,
             },
+            status: Status.PLAYING,
             isPrivate,
             password,
         });
         const chessdata = await chess.save();
-        const mapvalue = await Chess.findById(chessdata._id).populate('player1').populate('player2');
+        const mapvalue = await Chess.findById(chessdata._id).populate('player1.user').populate('player2.user');
         console.log({
             id: chessdata,
             mapvalue,
