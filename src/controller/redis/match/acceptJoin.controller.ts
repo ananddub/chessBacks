@@ -4,7 +4,7 @@ import { Channels } from 'constant/channels';
 
 const redisAcceptJoin = async (msg: string) => {
     try {
-        const io = initSocket();
+        const io = await initSocket();
         const { groupId, user } = JSON.parse(msg);
         io.to(user.socketID).emit(Channels.ON_ACCEPT_JOIN, { groupId, user });
     } catch (error) {

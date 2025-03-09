@@ -9,6 +9,7 @@ import socketInMatch from 'controller/socket/match/inMatch.controller';
 import { Server } from 'socket.io';
 import socketConnect from 'controller/socket/match/connect.controller';
 import socketDisconnect from 'controller/socket/match/disconnect.controller';
+import socketOnLeave from 'controller/socket/match/onLeave.controller';
 
 export const socketLisnter = (io: Server) => {
     io.on('connection', (socket) => {
@@ -21,6 +22,7 @@ export const socketLisnter = (io: Server) => {
         socket.on(Channels.ON_PROGRESS, socketInProgress);
         socket.on(Channels.ON_MATCH, socketInMatch);
         socket.on(Channels.ON_CONNECT, socketConnect);
+        socket.on(Channels.ON_LEAVE, socketOnLeave);
         socket.on(Channels.ON_DISCONNECT, (msg: string) => socketDisconnect(socket.id));
         //user
     });

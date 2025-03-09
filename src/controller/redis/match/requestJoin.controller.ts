@@ -4,7 +4,7 @@ import { initSocket } from 'lib/socket.manager';
 
 const redisRequestJoin = async (msg: string) => {
     try {
-        const io = initSocket();
+        const io = await initSocket();
         const { groupId, user } = JSON.parse(msg);
         io.to(user.socketID).emit(Channels.ON_REQUEST_JOIN, { groupId, user });
     } catch (error) {

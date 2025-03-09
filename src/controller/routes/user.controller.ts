@@ -4,6 +4,9 @@ import _ from 'lodash';
 import { User } from '@models/user.modal';
 import kafkProducer from '@utils/kafka/kafka.producer';
 import { Channels } from 'constant/channels';
+import { meiliClient } from 'lib/melisearch';
+import { v4 as uuid } from 'uuid';
+import mongoose from 'mongoose';
 
 const userRoutes = express.Router();
 const kafkaConnect = kafkProducer(Channels.ON_CONNECT);
@@ -38,9 +41,15 @@ export const createUser = async (req: Request, res: Response) => {
             res.status(400).json({ error: 'Email already in use' });
             return;
         }
-        const newUser = new User({ name, email, password });
-        await newUser.save();
-        res.status(201).send(newUser._id);
+        const data = {
+            _id: new mongoose.Types.ObjectId(),
+            name,
+            email,
+            password,
+        };
+
+        kafkProducer(Channels.ON_CREATE_USER)(JSON.stringify(data));
+        res.status(201).send(data._id);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

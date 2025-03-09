@@ -11,7 +11,9 @@ export enum Channels {
     ON_CONNECT = 'on_connects',
     ON_CREATE = 'on_create',
     ON_WATCH = 'on_watch',
+    ON_CUSTOM_CHALLENGE = 'on_custom_challenge',
     ON_LEAVE = 'on_leave',
+    ON_CREATE_USER = 'on_create_user',
 }
 
 export enum TURN {

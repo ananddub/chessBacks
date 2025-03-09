@@ -10,8 +10,8 @@ import connectDB from '@db/mongo.db';
 import chessRoutes from '@routes/chess.routes';
 
 const app = express();
-const server = app.listen(Config.PORT, () => {
-    const io = initSocket(server);
+const server = app.listen(Config.PORT, async () => {
+    const io = await initSocket(server);
     connectDB();
     socketLisnter(io);
     redisLisner();

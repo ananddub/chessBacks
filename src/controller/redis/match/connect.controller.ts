@@ -4,7 +4,7 @@ import { initSocket } from 'lib/socket.manager';
 
 const redisConnect = async (msg: string) => {
     try {
-        const io = initSocket();
+        const io = await initSocket();
         const user = JSON.parse(msg);
         io.emit(Channels.ON_CONNECT, user);
     } catch (error) {

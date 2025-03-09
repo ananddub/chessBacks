@@ -5,7 +5,7 @@ import { MsgValue } from 'types/redis.types';
 
 const redisInProgress = async (msg: string) => {
     try {
-        const io = initSocket();
+        const io = await initSocket();
         const { value, to, from } = JSON.parse(msg) as MsgValue;
 
         io.to(to).emit(Channels.ON_PROGRESS, { value, to, from });

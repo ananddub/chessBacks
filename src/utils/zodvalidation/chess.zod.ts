@@ -14,3 +14,12 @@ export const setChessGroup = z.object({
         password: z.string().min(4).optional(),
     }),
 });
+
+export const setCustomChallenge = z.object({
+    body: z.object({
+        player1: z.string().nonempty(),
+        player2: z.string().nonempty(),
+        private: z.boolean().optional().default(false),
+        password: z.string().min(4).optional(),
+    }),
+});

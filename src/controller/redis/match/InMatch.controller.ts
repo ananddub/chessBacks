@@ -5,7 +5,7 @@ import { initSocket } from 'lib/socket.manager';
 
 const redisInMatch = async (msg: string) => {
     try {
-        const io = initSocket();
+        const io = await initSocket();
         const { value, to, turn } = JSON.parse(msg);
         const newTurn = turn === TURN.BLACK ? TURN.WHITE : TURN.BLACK;
         const send_players = `${Channels.ON_MATCH}_${to}_players`;

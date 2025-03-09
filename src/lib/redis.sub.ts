@@ -10,6 +10,7 @@ import redisInProgress from 'controller/redis/match/InProgress.controller';
 import redisConnect from 'controller/redis/match/connect.controller';
 import redisDisconnect from 'controller/redis/match/disconnect.controller';
 import redisWatching from 'controller/redis/match/watching.controller';
+import redisOnLeave from 'controller/redis/match/onLeave.controller';
 
 export const redisLisner = () => {
     redisSub().subscribe(Channels.ON_MATCH, redisInMatch);
@@ -22,4 +23,5 @@ export const redisLisner = () => {
     redisSub().subscribe(Channels.ON_CONNECT, redisConnect);
     redisSub().subscribe(Channels.RON_DISCONNECT, redisDisconnect);
     redisSub().subscribe(Channels.ON_WATCH, redisWatching);
+    redisSub().subscribe(Channels.ON_LEAVE, redisOnLeave);
 };

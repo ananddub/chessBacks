@@ -5,3 +5,6 @@ export interface KafkaConsumerProps {
     partition: number;
     commit: () => void;
 }
+export interface KafkaBatchConsumerProps {
+    batch: { messages: { value: string }[] };
+}

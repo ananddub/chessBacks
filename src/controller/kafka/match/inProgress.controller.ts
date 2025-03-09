@@ -19,7 +19,6 @@ const kafkaInProgress = async ({ message, commit }: KafkaConsumerProps) => {
     if (newuser) {
         user.status = Status.PLAYING;
         newuser.status = Status.PLAYING;
-        console.log({ newuser, user });
         await user.save();
         await newuser.save();
         const chess = new Chess({
@@ -37,10 +36,7 @@ const kafkaInProgress = async ({ message, commit }: KafkaConsumerProps) => {
         });
         const chessdata = await chess.save();
         const mapvalue = await Chess.findById(chessdata._id).populate('player1.user').populate('player2.user');
-        console.log({
-            id: chessdata,
-            mapvalue,
-        });
+
         const value = {
             to: user.socketId,
             from: newuser.socketId,
