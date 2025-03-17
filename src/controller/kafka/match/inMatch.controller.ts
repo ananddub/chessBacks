@@ -5,12 +5,12 @@ import { KafkaConsumerProps } from 'types/kafka.types';
 
 const kafkaInMatch = async ({ message }: KafkaConsumerProps) => {
     const { to, turn, value } = JSON.parse(message);
-    const { moves, state } = value;
+    const { move, state } = value;
 
     const values = await Chess.findOneAndUpdate(
         { _id: to, status: Status.PLAYING },
         {
-            $push: { movement: { turn, moves, state } },
+            $push: { movement: { turn, move, state } },
             currentTurn: turn === TURN.BLACK ? TURN.WHITE : TURN.BLACK,
         },
         { new: true, runValidators: true }

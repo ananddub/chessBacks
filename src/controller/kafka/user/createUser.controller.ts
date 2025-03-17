@@ -16,7 +16,7 @@ const kafkaCreateUser = async ({ message, pause, commit }: KafkaConsumerProps) =
             name,
             email,
             password,
-            isOnline: false,
+            isOnline: true,
             status: Status.LOBBY,
         });
 

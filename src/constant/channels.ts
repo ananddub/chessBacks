@@ -14,9 +14,14 @@ export enum Channels {
     ON_CUSTOM_CHALLENGE = 'on_custom_challenge',
     ON_LEAVE = 'on_leave',
     ON_CREATE_USER = 'on_create_user',
+    ON_USER_STATUS = 'on_user_status',
 }
 
 export enum TURN {
     WHITE = 'white',
     BLACK = 'black',
+}
+
+export enum KafkaEnum {
+    socketName = 'kafka_',
 }

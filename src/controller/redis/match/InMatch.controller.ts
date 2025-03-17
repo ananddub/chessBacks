@@ -1,3 +1,4 @@
+import { SendEnum } from '@constant/sendEnum';
 import { TURN } from './../../../constant/channels';
 import { Channels } from 'constant/channels';
 
@@ -8,8 +9,8 @@ const redisInMatch = async (msg: string) => {
         const io = await initSocket();
         const { value, to, turn } = JSON.parse(msg);
         const newTurn = turn === TURN.BLACK ? TURN.WHITE : TURN.BLACK;
-        const send_players = `${Channels.ON_MATCH}_${to}_players`;
-        const send_watching = `${Channels.ON_MATCH}_${to}_watching`;
+        const send_players = `${Channels.ON_MATCH}_${to}_${SendEnum.PLAYERS}`;
+        const send_watching = `${Channels.ON_MATCH}_${to}_${SendEnum.WATCHING}`;
         const jsonvalues = {
             value,
             turn: newTurn,

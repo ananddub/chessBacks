@@ -2,7 +2,7 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 import mongoose, { Schema, Document } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 import { TURN } from '@constant/channels';
-import { Status } from '@constant/status';
+import { MATCH, Status } from '@constant/status';
 
 export interface Move {
     from: string;
@@ -36,7 +36,7 @@ export interface IChess extends Document {
     winner: {
         user: Schema.Types.ObjectId;
         turn: TURN;
-        type: string;
+        type: MATCH;
         timetaken: number;
     } | null;
     status: Status;
@@ -80,7 +80,7 @@ const ChessSchema: Schema = new Schema({
         {
             turn: { type: String, enum: Object.values(TURN), default: TURN.WHITE },
             createdAt: { type: Number, default: () => new Date().getTime() },
-            moves: {
+            move: {
                 from: { type: String, required: true },
                 to: { type: String, required: true },
                 piece: { type: String, required: true },
@@ -102,7 +102,7 @@ const ChessSchema: Schema = new Schema({
     winner: {
         user: { type: Schema.Types.ObjectId, ref: 'User', default: null },
         turn: { type: String, enum: Object.values(TURN), default: null },
-        type: { type: String, default: null },
+        type: { type: String, enum: Object.values(MATCH), default: null },
         createdAt: { type: Number, default: () => new Date().getTime() },
     },
     player2: {

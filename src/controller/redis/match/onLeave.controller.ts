@@ -1,15 +1,15 @@
-import kafkProducer from '@utils/kafka/kafka.producer';
+import { SendEnum } from '@constant/sendEnum';
 import { Channels } from 'constant/channels';
 import { initSocket } from 'lib/socket.manager';
 
 const redisOnLeave = async (msg: string) => {
     try {
         const io = await initSocket();
-        const { value, user, to } = JSON.parse(msg);
-        const send_players = `${Channels.ON_MATCH}_${to}_players`;
-        const send_watching = `${Channels.ON_MATCH}_${to}_watching`;
-        io.to(send_players).emit(Channels.ON_MESSAGE, { value, user });
-        io.to(send_watching).emit(Channels.ON_MESSAGE, { value, user });
+        const { id, winner } = JSON.parse(msg);
+        console.log('leave from socket->', id, winner);
+
+        const send_leave = `${Channels.ON_MATCH}_${id}_${SendEnum.LEAVE}`;
+        io.emit(send_leave, { id, winner });
     } catch (error) {
         console.log(error);
     }

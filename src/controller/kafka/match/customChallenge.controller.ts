@@ -9,7 +9,7 @@ const kafkaCustomChallenge = async ({ message, commit }: KafkaConsumerProps) => 
     const { player1, player2, isPrivate, password } = JSON.parse(message);
     const user = await User.findById(player1);
     const newuser = await User.findById(player2);
-    if (!user || !newuser) {
+    if (!user || !newuser || user._id === newuser._id) {
         return;
     }
     user.status = Status.PLAYING;

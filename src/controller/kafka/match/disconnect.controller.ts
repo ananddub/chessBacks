@@ -4,6 +4,7 @@ import { Status } from 'constant/status';
 import redisPublish from '@utils/redis.pub';
 import { Channels } from 'constant/channels';
 import kafkProducer from '@utils/kafka/kafka.producer';
+import { redisPub } from '@db/redis.db';
 
 const kafkaDisconnect = async ({ message, commit }: KafkaConsumerProps) => {
     try {
@@ -26,6 +27,7 @@ const kafkaDisconnect = async ({ message, commit }: KafkaConsumerProps) => {
             console.log('Kafka: Disconnect User not found', { socketId });
             return;
         }
+        redisPub().del('user:' + user._id);
         redisPublish(Channels.RON_DISCONNECT, JSON.stringify({ user }));
         kafkProducer(Channels.ON_LEAVE)(JSON.stringify({ id: user._id }));
         console.log('Disconnected user: ', user);

@@ -8,6 +8,8 @@ export const Config = {
     PORT: process.env.PORT || 4000,
     MEILISEARCH_URL: process.env.MEILISEARCH_URL || '',
     MEILISEARCH_MASTER_KEY: process.env.MEILISEARCH_MASTER_KEY || '',
-    REDIS: process.env.REDIS || '',
+    REDIS_HOST: process.env.REDIS_HOST || '',
     REDIS_PORT: process.env.REDIS_PORT || 6379,
 };
+
+console.log(Config);

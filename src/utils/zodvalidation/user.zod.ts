@@ -45,3 +45,9 @@ export const setSocketIdSchema = z.object({
         socketId: z.string().nonempty(),
     }),
 });
+
+export const whoSchema = z.object({
+    params: z.object({
+        id: z.string().nonempty(),
+    }),
+});

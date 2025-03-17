@@ -19,7 +19,7 @@ const server = app.listen(Config.PORT, async () => {
     console.log(`Server is running on port ${Config.PORT}`);
 });
 
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: ['*'] }));
 app.use(express.json());
 app.use(express.text());
 app.use('/api/v1/users', userRoutes);

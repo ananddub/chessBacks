@@ -5,6 +5,7 @@ import express from 'express';
 import redisPublish from '@utils/redis.pub';
 import { zodValidation } from 'middleware/zod.middleware';
 import { getChessGroup, setChessGroup, setCustomChallenge } from '@utils/zodvalidation/chess.zod';
+import { Status } from '@constant/status';
 
 const chessRoutes = express.Router();
 const kafkaProgress = kafkProducer(Channels.ON_PROGRESS);
@@ -46,6 +47,27 @@ chessRoutes.get('/reject', zodValidation(getChessGroup), (req, res) => {
     const { groupId, id } = req.body;
     redisPublish(Channels.ON_REJECT_JOIN, JSON.stringify({ id }));
     res.send({ status: 'ok' });
+});
+
+chessRoutes.get('/history/:id', async (req, res) => {
+    const { id } = req.params;
+    const chessdata = await Chess.find({
+        $or: [{ 'player1.user': id }, { 'player2.user': id }],
+    })
+        .populate('player1.user', 'name _id email')
+        .populate('player2.user', 'name _id email')
+        .sort({ createdAt: -1 })
+        .paginate({ page: 1, limit: 10 });
+
+    if (!chessdata) {
+        res.send({ status: 'ok', data: [] });
+        return;
+    }
+    res.send({
+        status: 'ok',
+        data: chessdata,
+        id: id,
+    });
 });
 
 export default chessRoutes;

@@ -1,6 +1,7 @@
 import { Channels, TURN } from '@constant/channels';
 import { MATCH, Status } from '@constant/status';
 import { Chess } from '@models/chess.modal';
+import { User } from '@models/user.modal';
 import redisPublish from '@utils/redis.pub';
 import mongoose from 'mongoose';
 import { KafkaConsumerProps } from 'types/kafka.types';
@@ -36,35 +37,35 @@ const KafkaOnLeave = async ({ message }: KafkaConsumerProps) => {
                 status: Status.FINISHED,
                 winner: {
                     user: chess.player2.user._id as any,
-                    type: MATCH.ABANDAND,
+                    type: MATCH.ABANDONED,
                     turn: chess.player2.turn,
                     createdAt: new Date().getTime(),
                 },
             };
+
+            await User.findByIdAndUpdate(chess.player2.user._id, { status: Status.LOBBY });
         } else if (chess.player2.user._id.toString() === id) {
             winner = {
                 status: Status.FINISHED,
                 winner: {
                     user: chess.player1.user._id as any,
-                    type: MATCH.ABANDAND,
+                    type: MATCH.ABANDONED,
                     turn: chess.player1.turn,
                     createdAt: new Date().getTime(),
                 },
             };
+            await User.findByIdAndUpdate(chess.player1.user._id, { status: Status.LOBBY });
         } else {
             console.log('User not in match', { id, ...chess });
             return;
         }
         await Chess.findByIdAndUpdate(chess._id, winner);
         const value = {
-            to: chess._id,
-            user: chess.player1.user,
-            value: {
-                winner: winner.winner,
-            },
+            id: chess._id,
+            winner: winner.winner,
         };
         console.log('Kafka: Emitting end match', value);
-        redisPublish(Channels.ON_END_MATCH, JSON.stringify(value));
+        redisPublish(Channels.ON_LEAVE, JSON.stringify(value));
     } catch (error) {
         console.log('Kafka: Error in onLeave', error);
     }
