@@ -1,11 +1,22 @@
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: PersistentVolume
 metadata:
   name: chess-pv
   namespace: chess
 spec:
+  capacity:
+    storage: 50Gi
   accessModes:
     - ReadWriteOnce
-  resources:
-    requests:
-      storage: 50Gi
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  hostPath:
+    path: /mnt/data/chess
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - vmi2302294.contaboserver.net
