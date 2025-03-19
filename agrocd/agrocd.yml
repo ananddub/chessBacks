@@ -9,7 +9,7 @@ spec:
   source:
     path: k8s
     repoURL: https://github.com/ananddub/chessBacks
-    targetRevision: allruning
+    targetRevision: test
   sources: []
   project: default
   syncPolicy:
