@@ -8,7 +8,8 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
     nginx.ingress.kubernetes.io/connection-proxy-header: "upgrade"
-    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
+    nginx.ingress.kubernetes.io/websocket-services: chess-backend
+
 spec:
   ingressClassName: nginx
   rules:
@@ -21,6 +22,14 @@ spec:
             name: chess-backend
             port:
               number: 3000
+      - path: /socket.io/
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: chess-backend
+            port:
+              number: 3000
+
       - pathType: Prefix
         path: "/mongo"
         backend:
