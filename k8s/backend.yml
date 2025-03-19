@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chess-backend
+  namespace: chess
+spec:
+  selector:
+    matchLabels:
+      app: chess-backend
+  template:
+    metadata:
+      labels:
+        app: chess-backend
+    spec:
+      containers:
+      - name: chess-backend
+        image: dubeyanand/chess:latest
+        imagePullPolicy: IfNotPresent 
+        env:
+          - name: REDIS_URI
+            value: "redis://redis:6379"
+          - name: DATABASE_URI
+            value: "mongodb://user:password@mongo:27017/?authSource=admin"
+          - name: KAFKA_URI
+            value: "kafka:9092"
+          - name: REDIS_HOST
+            value: "redis"
+          - name: REDIS_PORT
+            value: "6379"
+          - name: PORT
+            value: "3000"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000

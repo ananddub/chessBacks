@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: chess-ingress
+  namespace: chess
+  labels:
+    name: chess-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: chess-backend
+            port:
+              number: 3000
+      - pathType: Prefix
+        path: "/mongo"
+        backend:
+          service:
+            name: mongo-express
+            port:
+              number: 8081

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zookeeper
+  namespace: chess
+spec:
+  selector:
+    matchLabels:
+      app: zookeeper
+  serviceName: zookeeper
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    spec:
+      containers:
+      - name: zookeeper
+        image: confluentinc/cp-zookeeper
+        ports:
+        - containerPort: 2181
+          name: zookeeper
+        volumeMounts:
+        - name: zookeeper
+          mountPath: /var/lib/zookeeper
+      volumes:
+      - name: zookeeper
+        persistentVolumeClaim:
+          claimName: chess-pvc

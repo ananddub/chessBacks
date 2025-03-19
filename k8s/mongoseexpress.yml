@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-express
+  namespace: chess
+spec:
+  selector:
+    matchLabels:
+      app: mongo-express
+  template:
+    metadata:
+      labels:
+        app: mongo-express
+    spec:
+      containers:
+      - name: mongo-express
+        image: mongo-express
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8081
+        env:
+          - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+            value: "user"
+          - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+            value: "password"
+          - name: ME_CONFIG_MONGODB_SERVER
+            value: "mongo"
+
