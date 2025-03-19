@@ -28,13 +28,6 @@ spec:
             name: chess-backend
             port:
               number: 3000
-      - path: /socket.io/
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: chess-backend
-            port:
-              number: 3000
 
       - pathType: Prefix
         path: "/mongo"
