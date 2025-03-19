@@ -1,4 +1,3 @@
-import { MeiliSearch } from 'meilisearch';
 import { SendEnum } from '@constant/sendEnum';
 import { Channels } from 'constant/channels';
 import { initSocket } from 'lib/socket.manager';

@@ -4,8 +4,6 @@ import _ from 'lodash';
 import { User } from '@models/user.modal';
 import kafkProducer from '@utils/kafka/kafka.producer';
 import { Channels } from 'constant/channels';
-import { meiliClient } from 'lib/melisearch';
-import { v4 as uuid } from 'uuid';
 import mongoose from 'mongoose';
 
 const userRoutes = express.Router();
