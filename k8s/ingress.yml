@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   name: chess-ingress
   namespace: chess
-  labels:
-    name: chess-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
