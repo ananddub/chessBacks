@@ -17,13 +17,13 @@ spec:
         path: "/"
         backend:
           service:
-            name: chess-backend
+            name: chess-backend-service
             port:
               number: 3000
       - pathType: Prefix
         path: "/mongo"
         backend:
           service:
-            name: mongo-express
+            name: mongo-express-service
             port:
               number: 8081

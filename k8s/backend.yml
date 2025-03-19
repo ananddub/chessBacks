@@ -19,13 +19,13 @@ spec:
         imagePullPolicy: Always
         env:
           - name: REDIS_URI
-            value: "redis://redis:6379"
+            value: "redis://redis-service:6379"
           - name: DATABASE_URI
-            value: "mongodb://user:password@mongo:27017/?authSource=admin"
+            value: "mongodb://user:password@mongo-service:27017/?authSource=admin"
           - name: KAFKA_URI
-            value: "kafka:9092"
+            value: "kafka-service:9092"
           - name: REDIS_HOST
-            value: "redis"
+            value: "redis-service"
           - name: REDIS_PORT
             value: "6379"
           - name: PORT
