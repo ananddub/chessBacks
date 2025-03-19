@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: chess
+spec:
+  destination:
+    namespace: chess
+    server: https://kubernetes.default.svc
+  source:
+    path: k8s
+    repoURL: https://github.com/ananddub/chessBacks
+    targetRevision: main
+  sources: []
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
