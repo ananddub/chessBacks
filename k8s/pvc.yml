@@ -8,5 +8,6 @@ spec:
     requests:
       storage: 50Gi 
   volumeMode: Filesystem
+  storageClassName: local-storage
   accessModes:
     - ReadWriteOnce
