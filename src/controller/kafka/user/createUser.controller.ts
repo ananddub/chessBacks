@@ -1,6 +1,5 @@
 import { User } from '@models/user.modal';
 import { Status } from 'constant/status';
-import { meiliClient } from 'lib/melisearch';
 import { KafkaConsumerProps } from 'types/kafka.types';
 
 const kafkaCreateUser = async ({ message, pause, commit }: KafkaConsumerProps) => {
@@ -19,14 +18,6 @@ const kafkaCreateUser = async ({ message, pause, commit }: KafkaConsumerProps) =
             isOnline: true,
             status: Status.LOBBY,
         });
-
-        await meiliClient.index('users').addDocuments([
-            {
-                _id,
-                name,
-                email,
-            },
-        ]);
     } catch (error) {
         console.log(error);
     }
