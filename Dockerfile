@@ -8,7 +8,6 @@ RUN bun install
 # Copy all source files
 COPY . .
 
-RUN bunx prisma generate
 
 EXPOSE 3000
 
