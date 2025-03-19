@@ -1,21 +1,13 @@
+# pv.yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-kafka
+  name: pv-chess
 spec:
   capacity:
-    storage: 50Gi
+    storage: 1Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: local-storage
   hostPath:
-    path: /mnt/data/chess
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-                - vmi2302294.contaboserver.net
+    path: "/mnt/data/chess"   # ye path tere node par hona chahiye
+  persistentVolumeReclaimPolicy: Retain
