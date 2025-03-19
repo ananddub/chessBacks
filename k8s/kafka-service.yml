@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: kafka-service
+  name: kafka_service
   namespace: chess
 spec:
   selector:
