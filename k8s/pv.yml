@@ -1,13 +1,11 @@
-# pv.yaml
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
-  name: pv-chess
+  name: chess-pv
+  namespace: chess
 spec:
-  capacity:
-    storage: 1Gi
   accessModes:
     - ReadWriteOnce
-  hostPath:
-    path: "/mnt/data/chess"   # ye path tere node par hona chahiye
-  persistentVolumeReclaimPolicy: Retain
+  resources:
+    requests:
+      storage: 50Gi
