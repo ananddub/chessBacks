@@ -10,12 +10,16 @@ import connectDB from '@db/mongo.db';
 import chessRoutes from '@routes/chess.routes';
 
 const app = express();
+const origin = [
+    'https://admin.socket.io',
+    'http://95.111.232.100',
+    'http://chess-backend',
+    'http://localhost:3000',
+    '*',
+] as string[];
 app.use(
     cors({
-        origin: function (origin, callback) {
-            console.log(origin);
-            callback(null, true); // sabko allow
-        },
+        origin,
         credentials: true,
     })
 );

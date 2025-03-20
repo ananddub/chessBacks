@@ -22,14 +22,12 @@ export const initSocket = async (server: any = null): Promise<Server> => {
         'http://95.111.232.100',
         'http://chess-backend',
         'http://localhost:3000',
-    ];
+    ] as string[];
     console.log(origin);
     io = new Server(server, {
         adapter: createAdapter(subClient),
         cors: {
-            origin: (origin, callback) => {
-                callback(null, true); // sabko allow
-            },
+            origin,
             credentials: true,
         },
     });
