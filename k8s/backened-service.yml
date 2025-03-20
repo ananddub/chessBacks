@@ -6,6 +6,7 @@ metadata:
 spec:
   selector:
     app: chess-backend-deployment
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 3000
