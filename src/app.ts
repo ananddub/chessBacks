@@ -12,10 +12,10 @@ import chessRoutes from '@routes/chess.routes';
 const app = express();
 const server = app.listen(Config.PORT, async () => {
     const io = await initSocket(server);
-    // connectDB();
     socketLisnter(io);
-    // redisLisner();
-    // kafkaLisntner();
+    redisLisner();
+    kafkaLisntner();
+    connectDB();
     console.log(`Server is running on port ${Config.PORT}`);
 });
 
