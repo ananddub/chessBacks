@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chess-backend
+  name: chess-backend-deployment
   namespace: chess
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app: chess-backend
+      app: chess-backend-deployment
   template:
     metadata:
       labels:
-        app: chess-backend
+        app: chess-backend-deployment
     spec:
       containers:
-      - name: chess-backend
+      - name: chess-backend-deployment
         image: dubeyanand/chess:latest
         imagePullPolicy: Always
         env:
