@@ -4,7 +4,6 @@ metadata:
   name: chess-backend
   namespace: chess
 spec:
-  loadBalancerPolicy: ip_hash
   sessionAffinity: ClientIP
   selector:
     app: chess-backend
