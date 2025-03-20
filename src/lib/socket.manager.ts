@@ -21,7 +21,12 @@ export const initSocket = async (server: any = null): Promise<Server> => {
     io = new Server(server, {
         adapter: createAdapter(subClient),
         cors: {
-            origin: '*',
+            origin: [
+                'https://admin.socket.io',
+                'http://95.111.232.100',
+                'http://chess-backend',
+                'http://localhost:3000',
+            ],
             credentials: true,
         },
     });
