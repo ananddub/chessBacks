@@ -4,10 +4,13 @@ metadata:
   name: chess-backend
   namespace: chess
 spec:
+  clusterIP: None
+  type: NodePort
   selector:
     app: chess-backend-deployment
-  type: ClusterIP
   ports:
     - protocol: TCP
       port: 3000
       targetPort: 3000
+      nodePort: 30080
+
