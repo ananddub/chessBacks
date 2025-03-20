@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: zookeeper
+  name: zookeeper-deployment
   namespace: chess
 spec:
   selector:
     matchLabels:
-      app: zookeeper
+      app: zookeeper-deployment
   serviceName: zookeeper
   replicas: 1
   template:
     metadata:
       labels:
-        app: zookeeper
+        app: zookeeper-deployment
     spec:
       containers:
-      - name: zookeeper
+      - name: zookeeper-deployment
         image: confluentinc/cp-zookeeper
         ports:
         - containerPort: 2181

@@ -5,7 +5,7 @@ metadata:
   namespace: chess
 spec:
   selector:
-    app: kafka
+    app: kafka-deployment
   ports:
   - port: 9092
     targetPort: 9092

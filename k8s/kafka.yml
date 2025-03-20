@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: kafka
+  name: kafka-deployment
   namespace: chess
 spec:
   selector:
     matchLabels:
-      app: kafka
+      app: kafka-deployment
   serviceName: kafka
   replicas: 1
   template:
     metadata:
       labels:
-        app: kafka
+        app: kafka-deployment
     spec:
       containers:
       - name: kafka

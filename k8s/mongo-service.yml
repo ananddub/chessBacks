@@ -5,7 +5,7 @@ metadata:
   namespace: chess
 spec:
   selector:
-    app: mongo
+    app: mongo-deployment
   ports:
   - port: 27017
     targetPort: 27017

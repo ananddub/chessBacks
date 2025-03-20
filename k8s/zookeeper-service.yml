@@ -5,7 +5,7 @@ metadata:
   namespace: chess
 spec:
   selector:
-    app: zookeeper
+    app: zookeeper-deployment
   ports:
   - port: 2181
     targetPort: 2181

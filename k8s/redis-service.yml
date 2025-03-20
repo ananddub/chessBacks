@@ -5,7 +5,7 @@ metadata:
   namespace: chess
 spec:
   selector:
-    app: redis
+    app: redis-deployment
   ports:
   - port: 6379
     targetPort: 6379
