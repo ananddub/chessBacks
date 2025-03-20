@@ -26,6 +26,7 @@ import redisStatusUpdate from 'controller/redis/user/statusupdate.controller';
 export const socketLisnter = (io: Server) => {
     io.on('connection', (socket) => {
         //match
+        console.log('Socket connected', socket.id);
         socket.on(Channels.ON_MESSAGE, socketMessage);
         socket.on(Channels.ON_REQUEST_JOIN, socketRequestJoin);
         socket.on(Channels.ON_ACCEPT_JOIN, socketAcceptJoin);
