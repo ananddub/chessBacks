@@ -4,7 +4,7 @@ metadata:
   name: chess-ingress
   namespace: chess
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    # nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/configuration-snippet: |
       set $forwarded_client_ip "";
       if ($http_x_forwarded_for ~ "^([^,]+)") {
