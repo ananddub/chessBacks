@@ -4,7 +4,6 @@ metadata:
   name: chess-backend
   namespace: chess
 spec:
-  clusterIP: None
   type: NodePort
   selector:
     app: chess-backend-deployment
