@@ -15,7 +15,7 @@ spec:
   - http:
       paths:
       - pathType: Prefix
-        path: "/chess"
+        path: "/"
         backend:
           service:
             name: chess-backend
