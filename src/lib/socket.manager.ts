@@ -17,16 +17,17 @@ export const initSocket = async (server: any = null): Promise<Server> => {
     subClient.on('connect', () => {
         console.log('Redis Pub Client Connected');
     });
-
+    const origin = [
+        'https://admin.socket.io',
+        'http://95.111.232.100',
+        'http://chess-backend',
+        'http://localhost:3000',
+    ];
+    console.log(origin);
     io = new Server(server, {
         adapter: createAdapter(subClient),
         cors: {
-            origin: [
-                'https://admin.socket.io',
-                'http://95.111.232.100',
-                'http://chess-backend',
-                'http://localhost:3000',
-            ],
+            origin,
             credentials: true,
         },
     });
