@@ -10,6 +10,14 @@ import connectDB from '@db/mongo.db';
 import chessRoutes from '@routes/chess.routes';
 
 const app = express();
+app.use(
+    cors({
+        origin: function (origin, callback) {
+            console.log(origin);
+            callback(null, true); // sabko allow
+        },
+    })
+);
 const server = app.listen(Config.PORT, async () => {
     try {
         const io = await initSocket(server);
@@ -23,7 +31,6 @@ const server = app.listen(Config.PORT, async () => {
     }
 });
 
-app.use(cors({ origin: ['*'] }));
 app.use(express.json());
 app.use(express.text());
 app.get('/', (req, res) => {
