@@ -22,7 +22,9 @@ const server = app.listen(Config.PORT, async () => {
 app.use(cors({ origin: ['*'] }));
 app.use(express.json());
 app.use(express.text());
-
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/chess', chessRoutes);
 
