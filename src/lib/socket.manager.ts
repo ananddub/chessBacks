@@ -17,7 +17,6 @@ export const initSocket = async (server: any = null): Promise<Server> => {
     subClient.on('connect', () => {
         console.log('Redis Pub Client Connected');
     });
-    console.log(origin);
     io = new Server(server, {
         adapter: createAdapter(subClient),
     });
