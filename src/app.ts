@@ -16,6 +16,7 @@ app.use(
             console.log(origin);
             callback(null, true); // sabko allow
         },
+        credentials: true,
     })
 );
 const server = app.listen(Config.PORT, async () => {
