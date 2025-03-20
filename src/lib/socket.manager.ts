@@ -27,7 +27,9 @@ export const initSocket = async (server: any = null): Promise<Server> => {
     io = new Server(server, {
         adapter: createAdapter(subClient),
         cors: {
-            origin,
+            origin: (origin, callback) => {
+                callback(null, true); // sabko allow
+            },
             credentials: true,
         },
     });
