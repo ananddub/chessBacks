@@ -17,19 +17,9 @@ export const initSocket = async (server: any = null): Promise<Server> => {
     subClient.on('connect', () => {
         console.log('Redis Pub Client Connected');
     });
-    const origin = [
-        'https://admin.socket.io',
-        'http://95.111.232.100:' + Config.PORT,
-        'http://chess-backend:' + Config.PORT,
-        'http://localhost:' + Config.PORT,
-    ] as string[];
     console.log(origin);
     io = new Server(server, {
         adapter: createAdapter(subClient),
-        cors: {
-            origin,
-            credentials: true,
-        },
     });
     instrument(io, {
         auth: false,

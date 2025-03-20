@@ -10,12 +10,7 @@ import connectDB from '@db/mongo.db';
 import chessRoutes from '@routes/chess.routes';
 
 const app = express();
-const origin = [
-    'https://admin.socket.io',
-    'http://95.111.232.100:' + Config.PORT,
-    'http://chess-backend:' + Config.PORT,
-    'http://localhost:' + Config.PORT,
-] as string[];
+const origin = ['*'] as string[];
 app.use(
     cors({
         origin,
