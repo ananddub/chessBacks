@@ -19,7 +19,6 @@ const origin = [
 app.use(
     cors({
         origin,
-        credentials: true,
     })
 );
 const server = app.listen(Config.PORT, async () => {
