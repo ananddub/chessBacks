@@ -4,7 +4,7 @@ metadata:
   name: chess-backend-deployment
   namespace: chess
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
       app: chess-backend-deployment
