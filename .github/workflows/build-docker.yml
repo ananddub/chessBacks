@@ -1,22 +1,26 @@
 name: Build Docker Image
 
 on:
-  push:
-    branches:
-      - '*'
+    push:
+        branches:
+            - '*'
 
-  workflow_dispatch:
+    workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+    build:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Build Docker Image
-        run: docker build . -t dubeyanand/chess:latest
-      - name: Log in to Docker Hub
-        run: |
-          docker login -u dubeyanand -p ${{ secrets.DOCKER_HUB_TOKEN }}
-          docker push dubeyanand/chess:latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+            - name: Build Docker Image
+              run: docker build . -t dubeyanand/chess:latest
+            - name: Build Docker Image
+              run: docker build . -t dubeyanand/chess:${{ github.run_number }}
+
+            - name: Log in to Docker Hub
+              run: |
+                  docker login -u dubeyanand -p ${{ secrets.DOCKER_HUB_TOKEN }}
+                  docker push dubeyanand/chess:latest
+                  docker push dubeyanand/chess:${{ github.run_number }}

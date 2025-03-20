@@ -11,12 +11,16 @@ import chessRoutes from '@routes/chess.routes';
 
 const app = express();
 const server = app.listen(Config.PORT, async () => {
-    const io = await initSocket(server);
-    socketLisnter(io);
-    redisLisner();
-    kafkaLisntner();
-    connectDB();
-    console.log(`Server is running on port ${Config.PORT}`);
+    try {
+        const io = await initSocket(server);
+        socketLisnter(io);
+        redisLisner();
+        kafkaLisntner();
+        connectDB();
+        console.log(`Server is running on port ${Config.PORT}`);
+    } catch (err) {
+        console.log(err);
+    }
 });
 
 app.use(cors({ origin: ['*'] }));

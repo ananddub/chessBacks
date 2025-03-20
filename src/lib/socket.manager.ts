@@ -21,7 +21,7 @@ export const initSocket = async (server: any = null): Promise<Server> => {
     io = new Server(server, {
         adapter: createAdapter(subClient),
         cors: {
-            origin: ['https://admin.socket.io', 'http://localhost:3000'],
+            origin: '*',
             credentials: true,
         },
     });
