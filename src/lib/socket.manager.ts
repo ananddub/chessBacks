@@ -19,9 +19,9 @@ export const initSocket = async (server: any = null): Promise<Server> => {
     });
     const origin = [
         'https://admin.socket.io',
-        'http://95.111.232.100',
-        'http://chess-backend',
-        'http://localhost:3000',
+        'http://95.111.232.100:' + Config.PORT,
+        'http://chess-backend:' + Config.PORT,
+        'http://localhost:' + Config.PORT,
     ] as string[];
     console.log(origin);
     io = new Server(server, {
