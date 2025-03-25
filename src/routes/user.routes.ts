@@ -19,7 +19,7 @@ import {
     whoSchema,
 } from '@utils/zodvalidation/user.zod';
 import redisPublish from '@utils/redis.pub';
-import { Channels } from '@constant/channels';
+import { MatchChannels } from '@constant/channels';
 import { UserChannels } from '@constant/userchannel';
 import kafkProducer from '@utils/kafka/kafka.producer';
 import { User } from '@models/user.modal';
@@ -42,8 +42,8 @@ userRoutes.get('/who/:id', zodValidation(whoSchema), async (req, res) => {
 
 userRoutes.post('/reqfriend/:id', zodValidation(getUserSchema), (req, res) => {
     const { id } = req.params;
-    redisPublish(UserChannels.ON_USER_FREIND_REQUEST, JSON.stringify({ id }));
-    kafkProducer(UserChannels.ON_USER_FREIND_REQUEST)(JSON.stringify({ id }));
+    redisPublish(UserChannels.FREIND_REQUEST, JSON.stringify({ id }));
+    kafkProducer(UserChannels.FREIND_REQUEST)(JSON.stringify({ id }));
     res.send({ status: 'ok' });
 });
 

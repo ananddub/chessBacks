@@ -1,8 +1,8 @@
-import { UserChannels } from '@constant/userchannel';
+import { UserChallenge, UserChannels } from '@constant/userchannel';
 import { kafkaClient } from '@db/kafak.cl';
-import { Channels } from 'constant/channels';
+import { MatchChannels } from 'constant/channels';
 
-export default function kafkProducer(topic: Channels | UserChannels) {
+export default function kafkProducer(topic: MatchChannels | UserChannels | UserChallenge) {
     const kafka = kafkaClient();
     const producer = kafka.producer();
     return async (message: any) => {

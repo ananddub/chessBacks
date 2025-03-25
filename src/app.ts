@@ -16,6 +16,7 @@ app.use(
         origin,
     })
 );
+
 const server = app.listen(Config.PORT, async () => {
     try {
         const io = await initSocket(server);
@@ -31,9 +32,11 @@ const server = app.listen(Config.PORT, async () => {
 
 app.use(express.json());
 app.use(express.text());
+
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send('<h1>Hello World!</h1>');
 });
+
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/chess', chessRoutes);
 

@@ -1,5 +1,5 @@
 import { User } from '@models/user.modal';
-import { Channels } from 'constant/channels';
+import { MatchChannels } from 'constant/channels';
 
 import redisPublish from '@utils/redis.pub';
 import { ConfigSource } from 'kafkajs';
@@ -17,7 +17,7 @@ const kafkaConnect = async ({ message, pause, commit }: KafkaConsumerProps) => {
         );
 
         redisPub().set('user:' + id, JSON.stringify(user));
-        redisPublish(Channels.ON_CONNECT, JSON.stringify(user));
+        redisPublish(MatchChannels.CONNECT, JSON.stringify(user));
     } catch (error) {
         console.log(error);
     }

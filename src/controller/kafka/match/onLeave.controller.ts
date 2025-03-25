@@ -1,4 +1,4 @@
-import { Channels, TURN } from '@constant/channels';
+import { MatchChannels, TURN } from '@constant/channels';
 import { MATCH, Status } from '@constant/status';
 import { Chess } from '@models/chess.modal';
 import { User } from '@models/user.modal';
@@ -65,7 +65,7 @@ const KafkaOnLeave = async ({ message }: KafkaConsumerProps) => {
             winner: winner.winner,
         };
         console.log('Kafka: Emitting end match', value);
-        redisPublish(Channels.ON_LEAVE, JSON.stringify(value));
+        redisPublish(MatchChannels.LEAVE, JSON.stringify(value));
     } catch (error) {
         console.log('Kafka: Error in onLeave', error);
     }

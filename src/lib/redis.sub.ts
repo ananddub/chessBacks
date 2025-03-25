@@ -1,5 +1,5 @@
 import { redisSub } from '@db/redis.db';
-import { Channels } from 'constant/channels';
+import { MatchChannels } from 'constant/channels';
 import redisInMatch from 'controller/redis/match/InMatch.controller';
 import redisMessage from 'controller/redis/match/message.controller';
 import redisRequestJoin from 'controller/redis/match/requestJoin.controller';

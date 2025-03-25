@@ -1,12 +1,12 @@
-import { Channels } from 'constant/channels';
+import { MatchChannels } from 'constant/channels';
 
 import redisPublish from '@utils/redis.pub';
 import kafkProducer from '@utils/kafka/kafka.producer';
 
 const socketInProgress = async (msg: string) => {
     try {
-        kafkProducer(Channels.ON_PROGRESS)(msg);
-        redisPublish(Channels.ON_PROGRESS, msg);
+        kafkProducer(MatchChannels.ON_PROGRESS)(msg);
+        redisPublish(MatchChannels.ON_PROGRESS, msg);
     } catch (error) {
         console.log(error);
     }

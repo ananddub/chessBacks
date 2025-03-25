@@ -1,5 +1,5 @@
 import kafkaConsumer from '@utils/kafka/kafka.consumer';
-import { Channels } from 'constant/channels';
+import { MatchChannels } from 'constant/channels';
 
 import kafkaAcceptJoin from 'controller/kafka/match/acceptJoin.controller';
 import kafkaConnect from 'controller/kafka/match/connect.controller';
@@ -14,16 +14,16 @@ import kafkaRejectJoin from 'controller/kafka/match/rejectJoin.controller';
 import kafkaRequestJoin from 'controller/kafka/match/requestJoin.controller';
 import kafkaCreateUser from 'controller/kafka/user/createUser.controller';
 export const kafkaLisntner = () => {
-    kafkaConsumer(Channels.ON_MATCH, kafkaInMatch);
-    kafkaConsumer(Channels.ON_PROGRESS, kafkaInProgress);
-    kafkaConsumer(Channels.ON_END_MATCH, kafkaEndMatch);
-    kafkaConsumer(Channels.ON_MESSAGE, KafkaMessage);
-    kafkaConsumer(Channels.ON_REQUEST_JOIN, kafkaRequestJoin);
-    kafkaConsumer(Channels.ON_ACCEPT_JOIN, kafkaAcceptJoin);
-    kafkaConsumer(Channels.ON_REJECT_JOIN, kafkaRejectJoin);
-    kafkaConsumer(Channels.ON_CONNECT, kafkaConnect);
-    kafkaConsumer(Channels.ON_DISCONNECT, kafkaDisconnect);
-    kafkaConsumer(Channels.ON_CUSTOM_CHALLENGE, kafkaCustomChallenge);
-    kafkaConsumer(Channels.ON_LEAVE, KafkaOnLeave);
-    kafkaConsumer(Channels.ON_CREATE_USER, kafkaCreateUser);
+    kafkaConsumer(MatchChannels.MATCH, kafkaInMatch);
+    kafkaConsumer(MatchChannels.PROGRESS, kafkaInProgress);
+    kafkaConsumer(MatchChannels.END, kafkaEndMatch);
+    kafkaConsumer(MatchChannels.MESSAGE, KafkaMessage);
+    kafkaConsumer(MatchChannels.REQUEST, kafkaRequestJoin);
+    kafkaConsumer(MatchChannels.ACCEPT, kafkaAcceptJoin);
+    kafkaConsumer(MatchChannels.REJECT, kafkaRejectJoin);
+    kafkaConsumer(MatchChannels.CONNECT, kafkaConnect);
+    kafkaConsumer(MatchChannels.DISCONNECT, kafkaDisconnect);
+    kafkaConsumer(MatchChannels.CUSTOM, kafkaCustomChallenge);
+    kafkaConsumer(MatchChannels.LEAVE, KafkaOnLeave);
+    kafkaConsumer(MatchChannels.USER, kafkaCreateUser);
 };

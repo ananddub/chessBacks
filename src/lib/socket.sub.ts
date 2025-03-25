@@ -1,4 +1,4 @@
-import { Channels, KafkaEnum } from 'constant/channels';
+import { MatchChannels, KafkaEnum } from 'constant/channels';
 import socketMessage from 'controller/socket/match/message.controller';
 import socketRequestJoin from 'controller/socket/match/requestJoin.controller';
 import socketAcceptJoin from 'controller/socket/match/acceptJoin.controller';
@@ -27,32 +27,35 @@ export const socketLisnter = (io: Server) => {
     io.on('connection', (socket) => {
         //match
         console.log('Socket connected', socket.id);
-        socket.on(Channels.ON_MESSAGE, socketMessage);
-        socket.on(Channels.ON_REQUEST_JOIN, socketRequestJoin);
-        socket.on(Channels.ON_ACCEPT_JOIN, socketAcceptJoin);
-        socket.on(Channels.ON_REJECT_JOIN, socketRejectJoin);
-        socket.on(Channels.ON_END_MATCH, socketEndMatch);
-        socket.on(Channels.ON_PROGRESS, socketInProgress);
-        socket.on(Channels.ON_MATCH, socketInMatch);
-        socket.on(Channels.ON_CONNECT, socketConnect);
-        socket.on(Channels.ON_LEAVE, socketOnLeave);
-        socket.on(Channels.ON_DISCONNECT, (msg: string) => socketDisconnect(socket.id));
+        socket.on(MatchChannels.MESSAGE, socketMessage);
+        socket.on(MatchChannels.REQUEST, socketRequestJoin);
+        socket.on(MatchChannels.ACCEPT, socketAcceptJoin);
+        socket.on(MatchChannels.REJECT, socketRejectJoin);
+        socket.on(MatchChannels.END, socketEndMatch);
+        socket.on(MatchChannels.PROGRESS, socketInProgress);
+        socket.on(MatchChannels.MATCH, socketInMatch);
+        socket.on(MatchChannels.CONNECT, socketConnect);
+        socket.on(MatchChannels.LEAVE, socketOnLeave);
+        socket.on(MatchChannels.DISCONNECT, (msg: string) => socketDisconnect(socket.id));
         kafkaSocket(socket);
         //user
     });
 };
 
+const kafkaName = (chanel: MatchChannels) => {
+    return KafkaEnum.socketName + chanel;
+};
 const kafkaSocket = (io: Socket<any>) => {
-    io.on(KafkaEnum.socketName + Channels.ON_MATCH, redisInMatch);
-    io.on(KafkaEnum.socketName + Channels.ON_MESSAGE, redisMessage);
-    io.on(KafkaEnum.socketName + Channels.ON_REQUEST_JOIN, redisRequestJoin);
-    io.on(KafkaEnum.socketName + Channels.ON_ACCEPT_JOIN, redisAcceptJoin);
-    io.on(KafkaEnum.socketName + Channels.ON_REJECT_JOIN, redisRejectJoin);
-    io.on(KafkaEnum.socketName + Channels.ON_END_MATCH, redisEndMatch);
-    io.on(KafkaEnum.socketName + Channels.ON_PROGRESS, redisInProgress);
-    io.on(KafkaEnum.socketName + Channels.ON_CONNECT, redisConnect);
-    io.on(KafkaEnum.socketName + Channels.RON_DISCONNECT, redisDisconnect);
-    io.on(KafkaEnum.socketName + Channels.ON_WATCH, redisWatching);
-    io.on(KafkaEnum.socketName + Channels.ON_LEAVE, redisOnLeave);
-    io.on(KafkaEnum.socketName + Channels.ON_USER_STATUS, redisStatusUpdate);
+    io.on(kafkaName(MatchChannels.MATCH), redisInMatch);
+    io.on(kafkaName(MatchChannels.MESSAGE), redisMessage);
+    io.on(kafkaName(MatchChannels.REQUEST), redisRequestJoin);
+    io.on(kafkaName(MatchChannels.ACCEPT), redisAcceptJoin);
+    io.on(kafkaName(MatchChannels.REJECT), redisRejectJoin);
+    io.on(kafkaName(MatchChannels.END), redisEndMatch);
+    io.on(kafkaName(MatchChannels.PROGRESS), redisInProgress);
+    io.on(kafkaName(MatchChannels.CONNECT), redisConnect);
+    io.on(kafkaName(MatchChannels.DISCONNECT), redisDisconnect);
+    io.on(kafkaName(MatchChannels.WATCH), redisWatching);
+    io.on(kafkaName(MatchChannels.LEAVE), redisOnLeave);
+    io.on(kafkaName(MatchChannels.STATUS), redisStatusUpdate);
 };

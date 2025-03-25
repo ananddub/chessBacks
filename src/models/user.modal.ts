@@ -24,7 +24,6 @@ const userSchema = new mongoose.Schema(
         rating: { type: Number, default: 0, min: 0 },
         email: { type: String, unique: true, required: true, lowercase: true },
         accepted: [{ type: Schema.Types.ObjectId, ref: 'User', default: null }],
-        rejected: [{ type: Schema.Types.ObjectId, ref: 'User', default: null }],
         block: [{ type: Schema.Types.ObjectId, ref: 'User', default: null }],
         pending: [{ type: Schema.Types.ObjectId, ref: 'User', default: null }],
         password: { type: String, required: true, select: false },

@@ -1,6 +1,6 @@
 import { UserChannels } from '@constant/userchannel';
 import { redisPub } from '@db/redis.db';
-import { Channels, KafkaEnum } from 'constant/channels';
+import { MatchChannels, KafkaEnum } from 'constant/channels';
 import { initSocket } from 'lib/socket.manager';
 import redisInMatch from 'controller/redis/match/InMatch.controller';
 import redisMessage from 'controller/redis/match/message.controller';
@@ -14,7 +14,7 @@ import redisDisconnect from 'controller/redis/match/disconnect.controller';
 import redisWatching from 'controller/redis/match/watching.controller';
 import redisOnLeave from 'controller/redis/match/onLeave.controller';
 
-const redisPublish = async (channel: Channels | UserChannels, message: string) => {
+const redisPublish = async (channel: MatchChannels | UserChannels, message: string) => {
     const io = await initSocket();
     // redisPub().publish(channel, message);
     const channels = KafkaEnum.socketName + channel;
@@ -25,15 +25,15 @@ const redisPublish = async (channel: Channels | UserChannels, message: string) =
 export default redisPublish;
 
 const obj = new Map([
-    [KafkaEnum.socketName + Channels.ON_MATCH, redisInMatch],
-    [KafkaEnum.socketName + Channels.ON_MESSAGE, redisMessage],
-    [KafkaEnum.socketName + Channels.ON_REQUEST_JOIN, redisRequestJoin],
-    [KafkaEnum.socketName + Channels.ON_ACCEPT_JOIN, redisAcceptJoin],
-    [KafkaEnum.socketName + Channels.ON_REJECT_JOIN, redisRejectJoin],
-    [KafkaEnum.socketName + Channels.ON_END_MATCH, redisEndMatch],
-    [KafkaEnum.socketName + Channels.ON_PROGRESS, redisInProgress],
-    [KafkaEnum.socketName + Channels.ON_CONNECT, redisConnect],
-    [KafkaEnum.socketName + Channels.RON_DISCONNECT, redisDisconnect],
-    [KafkaEnum.socketName + Channels.ON_WATCH, redisWatching],
-    [KafkaEnum.socketName + Channels.ON_LEAVE, redisOnLeave],
+    [KafkaEnum.socketName + MatchChannels.ON_MATCH, redisInMatch],
+    [KafkaEnum.socketName + MatchChannels.ON_MESSAGE, redisMessage],
+    [KafkaEnum.socketName + MatchChannels.ON_REQUEST_JOIN, redisRequestJoin],
+    [KafkaEnum.socketName + MatchChannels.ON_ACCEPT_JOIN, redisAcceptJoin],
+    [KafkaEnum.socketName + MatchChannels.ON_REJECT_JOIN, redisRejectJoin],
+    [KafkaEnum.socketName + MatchChannels.ON_END_MATCH, redisEndMatch],
+    [KafkaEnum.socketName + MatchChannels.ON_PROGRESS, redisInProgress],
+    [KafkaEnum.socketName + MatchChannels.ON_CONNECT, redisConnect],
+    [KafkaEnum.socketName + MatchChannels.RON_DISCONNECT, redisDisconnect],
+    [KafkaEnum.socketName + MatchChannels.ON_WATCH, redisWatching],
+    [KafkaEnum.socketName + MatchChannels.ON_LEAVE, redisOnLeave],
 ]);

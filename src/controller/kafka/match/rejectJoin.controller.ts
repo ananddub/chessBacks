@@ -1,4 +1,4 @@
-import { Channels } from '@constant/channels';
+import { MatchChannels } from '@constant/channels';
 import { Chess } from '@models/chess.modal';
 import { User } from '@models/user.modal';
 import redisPublish from '@utils/redis.pub';
@@ -9,7 +9,7 @@ const kafkaRejectJoin = async ({ message }: KafkaConsumerProps) => {
     const chess = await Chess.findByIdAndUpdate(groupId, { $pull: { requested: id }, $push: { rejected: id } });
     const user = await User.findByIdAndUpdate(id);
     if (!chess || !user) return;
-    await redisPublish(Channels.ON_REJECT_JOIN, JSON.stringify({ user }));
+    await redisPublish(MatchChannels.REJECT, JSON.stringify({ user }));
     console.log(message);
 };
 

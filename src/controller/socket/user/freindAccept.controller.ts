@@ -4,8 +4,8 @@ import { UserChannels } from '@constant/userchannel';
 
 const freindAccept = async (msg: string) => {
     try {
-        kafkProducer(UserChannels.ON_USER_FREIND_ACCEPT)(msg);
-        redisPublish(UserChannels.ON_USER_FREIND_ACCEPT, msg);
+        kafkProducer(UserChannels.FREIND_ACCEPT)(msg);
+        redisPublish(UserChannels.FREIND_ACCEPT, msg);
     } catch (error) {
         console.log(error);
     }

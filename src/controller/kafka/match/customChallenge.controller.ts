@@ -3,7 +3,7 @@ import { Chess } from '@models/chess.modal';
 import { Status } from 'constant/status';
 import { User } from '@models/user.modal';
 import redisPublish from '@utils/redis.pub';
-import { Channels, TURN } from 'constant/channels';
+import { MatchChannels, TURN } from 'constant/channels';
 
 const kafkaCustomChallenge = async ({ message, commit }: KafkaConsumerProps) => {
     const { player1, player2, isPrivate, password } = JSON.parse(message);
@@ -36,7 +36,7 @@ const kafkaCustomChallenge = async ({ message, commit }: KafkaConsumerProps) => 
         from: newuser.socketId,
         value: mapvalue,
     };
-    redisPublish(Channels.ON_PROGRESS, JSON.stringify(value));
+    redisPublish(MatchChannels.PROGRESS, JSON.stringify(value));
 };
 
 export default kafkaCustomChallenge;

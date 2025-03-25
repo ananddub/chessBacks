@@ -3,11 +3,11 @@ import bcrypt from 'bcrypt';
 import _ from 'lodash';
 import { User } from '@models/user.modal';
 import kafkProducer from '@utils/kafka/kafka.producer';
-import { Channels } from 'constant/channels';
+import { MatchChannels } from 'constant/channels';
 import mongoose from 'mongoose';
 
 const userRoutes = express.Router();
-const kafkaConnect = kafkProducer(Channels.ON_CONNECT);
+const kafkaConnect = kafkProducer(MatchChannels.CONNECT);
 
 export const getAllUsers = async (req: Request, res: Response) => {
     try {
@@ -46,7 +46,7 @@ export const createUser = async (req: Request, res: Response) => {
             password,
         };
 
-        kafkProducer(Channels.ON_CREATE_USER)(JSON.stringify(data));
+        kafkProducer(MatchChannels.USER)(JSON.stringify(data));
         res.status(201).send(data._id);
     } catch (error) {
         res.status(400).json({ error: error.message });

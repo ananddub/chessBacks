@@ -1,11 +1,11 @@
 import { kafkaClient } from '@db/kafak.cl';
-import { Channels } from 'constant/channels';
+import { MatchChannels } from 'constant/channels';
 
 import { KafkaBatchConsumerProps, KafkaConsumerProps } from 'types/kafka.types';
 
 type Callback = (props: KafkaConsumerProps) => void;
 
-export default async function kafkaConsumer(topic: Channels, callback: Callback) {
+export default async function kafkaConsumer(topic: MatchChannels, callback: Callback) {
     const kafka = kafkaClient();
     const consumer = kafka.consumer({ groupId: topic, allowAutoTopicCreation: true });
     await consumer.connect();
@@ -24,7 +24,7 @@ export default async function kafkaConsumer(topic: Channels, callback: Callback)
 
 type Callbacks = (props: KafkaBatchConsumerProps) => void;
 
-export async function kafkaConsumerBatch(topic: Channels, callback: Callbacks) {
+export async function kafkaConsumerBatch(topic: MatchChannels, callback: Callbacks) {
     const kafka = kafkaClient();
     const consumer = kafka.consumer({ groupId: topic, allowAutoTopicCreation: true });
     await consumer.connect();

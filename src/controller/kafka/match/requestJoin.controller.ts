@@ -1,4 +1,4 @@
-import { Channels } from '@constant/channels';
+import { MatchChannels } from '@constant/channels';
 import { Chess } from '@models/chess.modal';
 import { User } from '@models/user.modal';
 import redisPublish from '@utils/redis.pub';
@@ -9,7 +9,7 @@ const kafkaRequestJoin = async ({ message }: KafkaConsumerProps) => {
     const chess = await Chess.findByIdAndUpdate(groupId, { $push: { requested: id } });
     const user = await User.findById(id);
     if (!chess || !user) return;
-    await redisPublish(Channels.ON_REQUEST_JOIN, JSON.stringify({ groupId, user }));
+    await redisPublish(MatchChannels.REQUEST, JSON.stringify({ groupId, user }));
     console.log(message);
 };
 

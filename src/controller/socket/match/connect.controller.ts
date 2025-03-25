@@ -1,13 +1,13 @@
-import { Channels } from 'constant/channels';
+import { MatchChannels } from 'constant/channels';
 import kafkProducer from '@utils/kafka/kafka.producer';
 import { initSocket } from 'lib/socket.manager';
 
 const socketConnect = async (msg: string) => {
     try {
-        kafkProducer(Channels.ON_CONNECT)(msg);
+        kafkProducer(MatchChannels.ON_CONNECT)(msg);
         const io = await initSocket();
         const user = JSON.parse(msg);
-        io.emit(Channels.ON_CONNECT, user);
+        io.emit(MatchChannels.ON_CONNECT, user);
     } catch (error) {
         console.log(error);
     }

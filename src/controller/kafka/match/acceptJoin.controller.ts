@@ -1,4 +1,4 @@
-import { Channels } from '@constant/channels';
+import { MatchChannels } from '@constant/channels';
 import { Chess } from '@models/chess.modal';
 import { User } from '@models/user.modal';
 import redisPublish from '@utils/redis.pub';
@@ -9,8 +9,8 @@ const kafkaAcceptJoin = async ({ message }: KafkaConsumerProps) => {
     const chess = await Chess.findByIdAndUpdate(groupId, { $pull: { accepted: id }, $push: { accepted: id } });
     const user = await User.findByIdAndUpdate(id);
     if (!chess || !user) return;
-    await redisPublish(Channels.ON_ACCEPT_JOIN, JSON.stringify({ groupId, user }));
-    await redisPublish(Channels.ON_WATCH, JSON.stringify({ groupId, length: chess?.watching.length }));
+    await redisPublish(MatchChannels.ACCEPT, JSON.stringify({ groupId, user }));
+    await redisPublish(MatchChannels.WATCH, JSON.stringify({ groupId, length: chess?.watching.length }));
     console.log(message);
 };
 

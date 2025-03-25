@@ -1,4 +1,4 @@
-import { Channels } from '@constant/channels';
+import { MatchChannels } from '@constant/channels';
 import { Chess } from '@models/chess.modal';
 import { KafkaConsumerProps } from 'types/kafka.types';
 
