@@ -42,7 +42,7 @@ export const socketLisnter = (io: Server) => {
     });
 };
 
-const kafkaName = (chanel: MatchChannels) => {
+export const kafkaName = (chanel: MatchChannels) => {
     return KafkaEnum.socketName + chanel;
 };
 const kafkaSocket = (io: Socket<any>) => {

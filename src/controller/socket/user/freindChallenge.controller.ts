@@ -1,12 +1,11 @@
 import redisPublish from '@utils/redis.pub';
 import kafkProducer from '@utils/kafka/kafka.producer';
-import { UserChannels } from '@constant/userchannel';
-import freindAcceptChallenge from './freindAcceptCh.controller';
+import { UserChallenge } from '@constant/userchannel';
 
 const freindChallenge = async (msg: string) => {
     try {
-        kafkProducer(UserChannels.ON_USER_CHALLENGE)(msg);
-        redisPublish(UserChannels.ON_USER_CHALLENGE, msg);
+        kafkProducer(UserChallenge.CHALLENGE)(msg);
+        redisPublish(UserChallenge.CHALLENGE, msg);
     } catch (error) {
         console.log(error);
     }

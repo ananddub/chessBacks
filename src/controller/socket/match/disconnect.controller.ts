@@ -4,7 +4,7 @@ import kafkProducer from '@utils/kafka/kafka.producer';
 const socketDisconnect = async (socketId: string) => {
     try {
         console.log('user disconnected ', { socketId });
-        kafkProducer(MatchChannels.ON_DISCONNECT)(JSON.stringify({ socketId }));
+        kafkProducer(MatchChannels.DISCONNECT)(JSON.stringify({ socketId }));
     } catch (error) {
         console.log(error);
     }

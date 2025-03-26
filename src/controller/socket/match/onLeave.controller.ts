@@ -4,7 +4,7 @@ import kafkProducer from '@utils/kafka/kafka.producer';
 
 const socketOnLeave = async (msg: string) => {
     try {
-        kafkProducer(MatchChannels.ON_LEAVE)(msg);
+        kafkProducer(MatchChannels.LEAVE)(msg);
     } catch (error) {
         console.log(error);
     }

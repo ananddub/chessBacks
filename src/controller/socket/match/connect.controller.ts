@@ -4,10 +4,10 @@ import { initSocket } from 'lib/socket.manager';
 
 const socketConnect = async (msg: string) => {
     try {
-        kafkProducer(MatchChannels.ON_CONNECT)(msg);
+        kafkProducer(MatchChannels.CONNECT)(msg);
         const io = await initSocket();
         const user = JSON.parse(msg);
-        io.emit(MatchChannels.ON_CONNECT, user);
+        io.emit(MatchChannels.CONNECT, user);
     } catch (error) {
         console.log(error);
     }

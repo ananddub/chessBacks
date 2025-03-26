@@ -5,8 +5,8 @@ import kafkProducer from '@utils/kafka/kafka.producer';
 
 const socketRejectJoin = async (msg: string) => {
     try {
-        kafkProducer(MatchChannels.ON_REJECT_JOIN)(msg);
-        redisPublish(MatchChannels.ON_REJECT_JOIN, msg);
+        kafkProducer(MatchChannels.REJECT)(msg);
+        redisPublish(MatchChannels.REJECT, msg);
     } catch (error) {
         console.log(error);
     }

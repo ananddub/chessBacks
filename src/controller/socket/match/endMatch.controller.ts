@@ -5,8 +5,8 @@ import kafkProducer from '@utils/kafka/kafka.producer';
 
 const socketEndMatch = async (msg: string) => {
     try {
-        kafkProducer(MatchChannels.ON_END_MATCH)(msg);
-        await redisPublish(MatchChannels.ON_END_MATCH, msg);
+        kafkProducer(MatchChannels.END)(msg);
+        await redisPublish(MatchChannels.END, msg);
     } catch (error) {
         console.log(error);
     }
