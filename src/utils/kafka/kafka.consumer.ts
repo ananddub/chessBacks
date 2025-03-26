@@ -1,3 +1,4 @@
+import { UserChallenge, UserChannels } from '@constant/userchannel';
 import { kafkaClient } from '@db/kafak.cl';
 import { MatchChannels } from 'constant/channels';
 
@@ -5,11 +6,12 @@ import { KafkaBatchConsumerProps, KafkaConsumerProps } from 'types/kafka.types';
 
 type Callback = (props: KafkaConsumerProps) => void;
 
-export default async function kafkaConsumer(topic: MatchChannels, callback: Callback) {
+export default async function kafkaConsumer(topic: MatchChannels | UserChannels | UserChallenge, callback: Callback) {
+    const newtopic = topic.toString().replace(/:/g, '_');
     const kafka = kafkaClient();
-    const consumer = kafka.consumer({ groupId: topic, allowAutoTopicCreation: true });
+    const consumer = kafka.consumer({ groupId: newtopic, allowAutoTopicCreation: true });
     await consumer.connect();
-    await consumer.subscribe({ topic, fromBeginning: true });
+    await consumer.subscribe({ topic: newtopic, fromBeginning: true });
 
     await consumer.run({
         autoCommit: true,

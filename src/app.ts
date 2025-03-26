@@ -19,11 +19,11 @@ app.use(
 
 const server = app.listen(Config.PORT, async () => {
     try {
-        const io = await initSocket(server);
-        socketLisnter(io);
-        redisLisner();
+        // const io = await initSocket(server);
+        // socketLisnter(io);
+        // redisLisner();
         kafkaLisntner();
-        connectDB();
+        // connectDB();
         console.log(`Server is running on port ${Config.PORT}`);
     } catch (err) {
         console.log(err);

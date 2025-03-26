@@ -4,12 +4,13 @@ import { MatchChannels } from 'constant/channels';
 
 export default function kafkProducer(topic: MatchChannels | UserChannels | UserChallenge) {
     const kafka = kafkaClient();
+    const newtopic = topic.toString().replace(/:/g, '_');
     const producer = kafka.producer();
     return async (message: any) => {
         try {
             await producer.connect();
             await producer.send({
-                topic,
+                topic: newtopic,
                 messages: [{ value: message }],
             });
             return true;
