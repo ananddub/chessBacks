@@ -17,19 +17,22 @@ app.use(
     })
 );
 
-const server = app.listen(Config.PORT, async () => {
+const server = app.listen(Config.PORT as number, '0.0.0.0', async () => {
     try {
-        // const io = await initSocket(server);
-        // socketLisnter(io);
-        // redisLisner();
+        const io = await initSocket(server);
+        socketLisnter(io);
+        redisLisner();
         kafkaLisntner();
-        // connectDB();
+        connectDB();
         console.log(`Server is running on port ${Config.PORT}`);
     } catch (err) {
         console.log(err);
     }
 });
-
+app.use((req, res, next) => {
+    console.log(req.url);
+    next();
+});
 app.use(express.json());
 app.use(express.text());
 

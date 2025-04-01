@@ -13,7 +13,7 @@ const kafkaInProgress = async ({ message, commit }: KafkaConsumerProps) => {
         socketId: { $ne: null },
     });
     if (!user) {
-        console.log('User not found', { player1 });
+        console.log('User not found', { player1, message: JSON.parse(message) });
         return;
     }
     user.status = Status.PENDING;

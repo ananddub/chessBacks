@@ -23,6 +23,7 @@ import { MatchChannels } from '@constant/channels';
 import { UserChannels } from '@constant/userchannel';
 import kafkProducer from '@utils/kafka/kafka.producer';
 import { User } from '@models/user.modal';
+import { Mongoose } from 'mongoose';
 
 const userRoutes = express.Router();
 
@@ -34,17 +35,27 @@ userRoutes.delete('/user/:id', zodValidation(deleteUserSchema), deleteUser);
 userRoutes.post('/login', zodValidation(loginSchema), userLogin);
 userRoutes.post('/socket', zodValidation(setSocketIdSchema), setSocketId);
 userRoutes.get('/who/:id', zodValidation(whoSchema), async (req, res) => {
-    const { id } = req.params;
-    const user = await User.findOne({ _id: id });
-    if (!user) res.send({ user: null });
-    else res.send({ user });
+    try {
+        const { id } = req.params;
+        const user = await User.findOne({ _id: id });
+        if (!user) res.status(401).send({ user: null });
+        else res.status(200).send({ user });
+    } catch (error) {
+        console.log(error);
+        res.status(501).send({ status: 'error' });
+    }
 });
 
 userRoutes.post('/reqfriend/:id', zodValidation(getUserSchema), (req, res) => {
-    const { id } = req.params;
-    redisPublish(UserChannels.FREIND_REQUEST, JSON.stringify({ id }));
-    kafkProducer(UserChannels.FREIND_REQUEST)(JSON.stringify({ id }));
-    res.send({ status: 'ok' });
+    try {
+        const { id } = req.params;
+        redisPublish(UserChannels.FREIND_REQUEST, JSON.stringify({ id }));
+        kafkProducer(UserChannels.FREIND_REQUEST)(JSON.stringify({ id }));
+        res.send({ status: 'ok' });
+    } catch (error) {
+        console.log(error);
+        res.status(501).send({ status: 'error' });
+    }
 });
 
 export default userRoutes;

@@ -5,6 +5,8 @@ import kafkProducer from '@utils/kafka/kafka.producer';
 
 const socketInProgress = async (msg: string) => {
     try {
+        console.log({ channels: MatchChannels.PROGRESS, msg });
+
         kafkProducer(MatchChannels.PROGRESS)(msg);
         redisPublish(MatchChannels.PROGRESS, msg);
     } catch (error) {

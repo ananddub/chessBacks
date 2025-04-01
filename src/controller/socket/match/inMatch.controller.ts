@@ -5,6 +5,7 @@ import kafkProducer from '@utils/kafka/kafka.producer';
 
 const socketInMatch = async (msg: string) => {
     try {
+        console.log('inmatch socket', msg);
         redisPublish(MatchChannels.MATCH, msg);
         kafkProducer(MatchChannels.MATCH)(msg);
     } catch (error) {

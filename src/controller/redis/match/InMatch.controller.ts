@@ -8,6 +8,8 @@ import sendUser from '@utils/send.user';
 const redisInMatch = async (msg: string) => {
     try {
         const io = await initSocket();
+        console.log('redis in match', msg);
+
         const { value, to, turn } = JSON.parse(msg);
         const newTurn = turn === TURN.BLACK ? TURN.WHITE : TURN.BLACK;
         const send_players = sendUser(MatchChannels.MATCH, to, SendEnum.PLAYERS);
@@ -16,7 +18,6 @@ const redisInMatch = async (msg: string) => {
             value: value,
             turn: newTurn,
         };
-        // console.log('in match', jsonvalues);
         io.emit(send_players, jsonvalues);
         io.emit(send_watching, jsonvalues);
     } catch (error) {
