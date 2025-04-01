@@ -20,9 +20,9 @@ spec:
         ports:
         - containerPort: 6379
         volumeMounts:
-        - name: redis
+        - name: redis-pv
           mountPath: /data
       volumes:
-      - name: redis
+      - name: redis-pv
         persistentVolumeClaim:
-          claimName: chess-pvc
+          claimName: redis-pvc

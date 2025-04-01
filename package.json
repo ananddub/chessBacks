@@ -16,7 +16,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "bun src/index.ts",
-        "watch": "bun --watch src/index.ts"
+        "watch": "bun --watch src/index.ts",
+        "prepare": "husky"
     },
     "dependencies": {
         "@prisma/client": "^6.4.1",

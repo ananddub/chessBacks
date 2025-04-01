@@ -31,4 +31,4 @@ spec:
       volumes:
       - name: mongo
         persistentVolumeClaim:
-          claimName: chess-pvc
+          claimName: mongo-pvc

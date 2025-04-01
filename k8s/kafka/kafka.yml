@@ -39,9 +39,9 @@ spec:
             memory: "1Gi"
             cpu: "1"
         volumeMounts:
-        - name: chess-pvc
+        - name: kafka-pv
           mountPath: /var/lib/kafka
       volumes:
-      - name: chess-pvc
-        persistentVolumeClaim:
-          claimName: chess-pvc
+        - name: kafka-pv
+          persistentVolumeClaim:
+            claimName: kafka-pvc

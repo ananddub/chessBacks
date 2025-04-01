@@ -12,5 +12,6 @@ resources:
   - mongo/mongoseexpress.yml
   - redis/redis-service.yml
   - redis/redis.yml
-  - storage/pv.yml
-  - storage/pvc.yml
+  - storage/kafka.pv.pvc.yml
+  - storage/mongo.pv.pvc.yml
+  - storage/redis.pv.pvc.yml
