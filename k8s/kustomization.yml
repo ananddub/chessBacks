@@ -1,0 +1,16 @@
+resources:
+  - backend/backend.yml
+  - backend/backened-service.yml
+  - ingress.yml
+  - kafka/kafka-service.yml
+  - kafka/kafka.yml
+  - kafka/zookeeper-service.yml
+  - kafka/zookeeper.yml
+  - mongo/mongo-service.yml
+  - mongo/mongo.yml
+  - mongo/mongose-express-service.yml
+  - mongo/mongoseexpress.yml
+  - redis/redis-service.yml
+  - redis/redis.yml
+  - storage/pv.yml
+  - storage/pvc.yml
