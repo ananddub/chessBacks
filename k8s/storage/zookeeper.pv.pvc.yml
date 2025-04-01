@@ -1,7 +1,8 @@
+
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mongo-pv
+  name: zookeeper-pv
   namespace: chess
 spec:
   capacity:
@@ -11,7 +12,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   hostPath:
-    path: /mnt/data/mongo
+    path: /mnt/data/zookeeper
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -24,7 +25,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongo-pvc
+  name: redis-pvc
   namespace: chess
 spec:
   resources:

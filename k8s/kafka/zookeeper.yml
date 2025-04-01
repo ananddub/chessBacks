@@ -35,4 +35,4 @@ spec:
       volumes:
       - name: zookeeper
         persistentVolumeClaim:
-          claimName: chess-pvc
+          claimName: zookeeper-pvc

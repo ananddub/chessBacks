@@ -15,3 +15,4 @@ resources:
   - storage/kafka.pv.pvc.yml
   - storage/mongo.pv.pvc.yml
   - storage/redis.pv.pvc.yml
+  - storage/zookeeper.pv.pvc.yml

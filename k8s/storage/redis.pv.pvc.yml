@@ -11,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   hostPath:
-    path: /mnt/data/kafka
+    path: /mnt/data/redis
   nodeAffinity:
     required:
       nodeSelectorTerms:
