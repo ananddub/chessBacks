@@ -12,14 +12,6 @@ spec:
   storageClassName: local-storage
   hostPath:
     path: /mnt/data/redis
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-                - vmi2302294.contaboserver.net
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

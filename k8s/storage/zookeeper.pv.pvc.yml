@@ -13,19 +13,12 @@ spec:
   storageClassName: local-storage
   hostPath:
     path: /mnt/data/zookeeper
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-                - vmi2302294.contaboserver.net
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: redis-pvc
+  name: zookeeper-pvc
   namespace: chess
 spec:
   resources:
